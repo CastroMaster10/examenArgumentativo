@@ -2,6 +2,15 @@ import numpy as np
 import random
 import math
 from tabulate import tabulate
+import statistics
+
+# Assuming 'my_list' is your list
+my_list = [1, 2, 3, 4, 5]
+
+mean = statistics.mean(my_list)
+
+print(mean)
+
 
 def Simulacion():
     try:
@@ -39,6 +48,7 @@ def Simulacion():
         p1 = 0.5
         p2  = 0.5
         table_data = [["Experimento","Distancia Máxima", "Última distancia"]]
+        distanciasMax = []
 
         for i in range(n):
             coordenadas = [0,0] #Coordenadas de origen
@@ -60,13 +70,16 @@ def Simulacion():
                 
                 distancia = math.sqrt(coordenadas[0] ** 2 + coordenadas[1] ** 2) #distancia euclediana
                 distancias.append(distancia)
+
             
             new_row = [i,max(distancias),distancias[-1]]
             table_data.append(new_row)
+            distanciasMax.append(max(distancias))
         
+
         table = tabulate(table_data, headers="firstrow", tablefmt="fancy_grid")
         print(table)
-        
+        print(f'Distancia maxima promedio dentro de los {n} experimentos: {statistics.mean(distanciasMax)}')
 
     elif dim > 2 or dim <= 0:
         print("Introduzca un numero valido de dimensiones (1 o 2)")
